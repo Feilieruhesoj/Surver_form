@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Survey</title>
+
+  </head>
+
+  <html> 
+    <body>
+      <div class="background-gradient">
+        <div class="survey-container">
+          <h1>Programming Survey</h1>
+          <form id="survey-form">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+              <label for="question1">How much do you like programming?</label>
+              <div class="radio-group">
+                <input type="radio" id="very-satisfied" name="question1" value="Very Satisfied">
+                <label for="very-satisfied">I love it</label>
+                <input type="radio" id="satisfied" name="question1" value="Satisfied">
+                <label for="satisfied">Very much</label>
+                <input type="radio" id="neutral" name="question1" value="Neutral">
+                <label for="neutral">Neutral</label>
+                <input type="radio" id="dissatisfied" name="question1" value="Dissatisfied">
+                <label for="dissatisfied">Not much</label>
+                <input type="radio" id="very-dissatisfied" name="question1" value="Very Dissatisfied">
+                <label for="very-dissatisfied">I hate it</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="question2">What can we improve?</label>
+              <textarea id="question2"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="question3">Please select your best programming skill:</label>
+              <div class="radio-group">
+                <input type="radio" id="python" name="question3" value="Python">
+                <label for="python">Python</label>
+                <input type="radio" id="java" name="question3" value="Java">
+                <label for="java">Java</label>
+                <input type="radio" id="css" name="question3" value="CSS">
+                <label for="css">CSS</label>
+                <input type="radio" id="javascript" name="question3" value="JavaScript">
+                <label for="javascript">JavaScript</label>
+                <input type="radio" id="cpp" name="question3" value="C++">
+                <label for="cpp">C++</label>
+                <input type="radio" id="csharp" name="question3" value="C#">
+                <label for="csharp">C#</label>
+                <input type="radio" id="others" name="question3" value="Others">
+                <label for="others">Others</label>
+              </div>
+              <input type="text" id="other-skill" placeholder="Please specify" style="display: none;">
+            </div>
+            <div class="form-group">
+              <label for="question4">Which programming languages are you interested in learning? (Select all that apply)</label>
+              <div class="checkbox-group">
+                <input type="checkbox" id="python-learn" name="question4" value="Python">
+                <label for="python-learn">Python</label>
+                <input type="checkbox" id="java-learn" name="question4" value="Java">
+                <label for="java-learn">Java</label>
+                <input type="checkbox" id="css-learn" name="question4" value="CSS">
+                <label for="css-learn">CSS</label>
+                <input type="checkbox" id="javascript-learn" name="question4" value="JavaScript">
+                <label for="javascript-learn">JavaScript</label>
+                <input type="checkbox" id="cpp-learn" name="question4" value="C++">
+                <label for="cpp-learn">C++</label>
+                <input type="checkbox" id="csharp-learn" name="question4" value="C#">
+                <label for="csharp-learn">C#</label>
+                <input type="checkbox" id="others-learn" name="question4" value="Others">
+                <label for="others-learn">Others</label>
+              </div>
+              <input type="text" id="other-language" placeholder="Please specify" style="display: none;">
+            </div>
+            <div class="form-group">
+              <label for="question5">How confident are you in your programming skills? (1 - 10)</label>
+              <input type="range" id="question5" name="question5" min="1" max="10" value="5">
+              <span id="confidence-value">5</span>
+            </div>
+            <div class="button-group">
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+          <div id="thank-you" style="display: none;">
+            <h2>Thank you for your response!</h2>
+            <img src="https://pm1.aminoapps.com/6336/f0485647c7d18d453c223adbed1bdd421bc61057_hq.jpg" alt="Smiling Man" width="224" height="224">
+            <div class="button-group">
+              <button id="resubmit-btn">Resubmit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="script.js"></script>
+    </body>
+  </html>
+
+    <script>
+        const form = document.getElementById('survey-form');
+        const thankYouMessage = document.getElementById('thank-you');
+        const resubmitBtn = document.getElementById('resubmit-btn');
+        const otherSkillInput = document.getElementById('other-skill');
+        const otherLanguageInput = document.getElementById('other-language');
+        const confidenceSlider = document.getElementById('question5');
+        const confidenceValue = document.getElementById('confidence-value');
+
+        form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const question1 = document.querySelector('input[name="question1"]:checked').value;
+        const question2 = document.getElementById('question2').value;
+        const question3 = document.querySelector('input[name="question3"]:checked').value;
+        const otherSkill = otherSkillInput.value;
+        const question4 = Array.from(document.querySelectorAll('input[name="question4"]:checked')).map(checkbox => checkbox.value);
+        const otherLanguage = otherLanguageInput.value;
+        const question5 = confidenceSlider.value;
+
+        console.log('Name:', name);
+        console.log('Email:', email);
+        console.log('Question 1:', question1);
+        console.log('Question 2:', question2);
+        console.log('Question 3:', question3);
+        if (question3 === 'Others') {
+            console.log('Other Skill:', otherSkill);
+        }
+        console.log('Question 4:', question4);
+        if (question4.includes('Others')) {
+            console.log('Other Language:', otherLanguage);
+        }
+        console.log('Question 5:', question5);
+
+        // Show the thank you message and resubmit button
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+        });
+
+        resubmitBtn.addEventListener('click', function() {
+        // Reset the form
+        form.reset();
+        otherSkillInput.style.display = 'none';
+        otherLanguageInput.style.display = 'none';
+        confidenceValue.textContent = '5';
+
+
+        thankYouMessage.style.display = 'none';
+        form.style.display = 'block';
+        });
+
+        const otherSkillOption = document.getElementById('others');
+        otherSkillOption.addEventListener('change', function() {
+        if (this.checked) {
+            otherSkillInput.style.display = 'block';
+        } else {
+            otherSkillInput.style.display = 'none';
+            otherSkillInput.value = '';
+        }
+        });
+
+        const otherLanguageOption = document.getElementById('others-learn');
+        otherLanguageOption.addEventListener('change', function() {
+        if (this.checked) {
+            otherLanguageInput.style.display = 'block';
+        } else {
+            otherLanguageInput.style.display = 'none';
+            otherLanguageInput.value = '';
+        }
+        });
+
+        confidenceSlider.addEventListener('input', function() {
+        confidenceValue.textContent = this.value;
+        });
+</script>
+    
+  </body>
+</html>
